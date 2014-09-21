@@ -3274,9 +3274,10 @@ find_pc_overlay (CORE_ADDR pc)
 {
   struct objfile *objfile;
   struct obj_section *osect, *best_match = NULL;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdangling-else"
   if (overlay_debugging)
-    ALL_OBJSECTIONS (objfile, osect)
+    ALL_OBJSECTIONS (objfile, osect) // this seems very confusing, where does the else actually belong?
       if (section_is_overlay (osect))
       {
 	if (pc_in_mapped_range (pc, osect))
@@ -3289,6 +3290,7 @@ find_pc_overlay (CORE_ADDR pc)
 	else if (pc_in_unmapped_range (pc, osect))
 	  best_match = osect;
       }
+#pragma clang diagnostic pop
   return best_match;
 }
 
@@ -3301,12 +3303,13 @@ find_pc_mapped_section (CORE_ADDR pc)
 {
   struct objfile *objfile;
   struct obj_section *osect;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdangling-else"
   if (overlay_debugging)
     ALL_OBJSECTIONS (objfile, osect)
       if (pc_in_mapped_range (pc, osect) && section_is_mapped (osect))
 	return osect;
-
+#pragma clang diagnostic pop
   return NULL;
 }
 
@@ -3319,7 +3322,8 @@ list_overlays_command (char *args, int from_tty)
   int nmapped = 0;
   struct objfile *objfile;
   struct obj_section *osect;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdangling-else"
   if (overlay_debugging)
     ALL_OBJSECTIONS (objfile, osect)
       if (section_is_mapped (osect))
@@ -3348,6 +3352,7 @@ list_overlays_command (char *args, int from_tty)
       }
   if (nmapped == 0)
     printf_filtered (_("No sections are mapped.\n"));
+#pragma clang diagnostic pop
 }
 
 /* Function: map_overlay_command
@@ -3368,6 +3373,8 @@ map_overlay_command (char *args, int from_tty)
     error (_("Argument required: name of an overlay section"));
 
   /* First, find a section matching the user supplied argument.  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdangling-else"
   ALL_OBJSECTIONS (objfile, sec)
     if (!strcmp (bfd_section_name (objfile->obfd, sec->the_bfd_section), args))
     {
@@ -3391,6 +3398,7 @@ map_overlay_command (char *args, int from_tty)
 	}
       return;
     }
+#pragma clang diagnostic pop
   error (_("No overlay section called %s"), args);
 }
 
@@ -3413,6 +3421,8 @@ unmap_overlay_command (char *args, int from_tty)
     error (_("Argument required: name of an overlay section"));
 
   /* First, find a section matching the user supplied argument.  */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdangling-else"
   ALL_OBJSECTIONS (objfile, sec)
     if (!strcmp (bfd_section_name (objfile->obfd, sec->the_bfd_section), args))
     {
@@ -3422,6 +3432,7 @@ unmap_overlay_command (char *args, int from_tty)
       return;
     }
   error (_("No overlay section called %s"), args);
+#pragma clang diagnostic pop
 }
 
 /* Function: overlay_auto_command
