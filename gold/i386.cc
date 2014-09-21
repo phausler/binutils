@@ -855,6 +855,8 @@ class Target_i386 : public Sized_target<32, false>
   bool tls_base_symbol_defined_;
 };
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunneeded-internal-declaration"
 const Target::Target_info Target_i386::i386_info =
 {
   32,			// size
@@ -880,6 +882,8 @@ const Target::Target_info Target_i386::i386_info =
   NULL,			// attributes_vendor
   "_start"		// entry_symbol_name
 };
+
+#pragma clang diagnostic pop
 
 // Get the GOT section, creating it if necessary.
 
