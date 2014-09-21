@@ -278,7 +278,7 @@ mi_cmd_stack_list_args (char *command, char **argv, int argc)
   int i;
   struct frame_info *fi;
   struct cleanup *cleanup_stack_args;
-  enum print_values print_values;
+  int print_values;
   struct ui_out *uiout = current_uiout;
   int raw_arg = 0;
   int oind = 0;

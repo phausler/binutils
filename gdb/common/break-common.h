@@ -21,6 +21,7 @@
 
 enum target_hw_bp_type
   {
+    hw_invalid = -1,
     hw_write   = 0, 		/* Common  HW watchpoint */
     hw_read    = 1, 		/* Read    HW watchpoint */
     hw_access  = 2, 		/* Access  HW watchpoint */
