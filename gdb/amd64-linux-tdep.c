@@ -1458,7 +1458,7 @@ amd64_linux_syscall_record_common (struct regcache *regcache,
 {
   int ret;
   ULONGEST syscall_native;
-  enum gdb_syscall syscall_gdb = -1;
+  int syscall_gdb = -1;
 
   regcache_raw_read_unsigned (regcache, AMD64_RAX_REGNUM, &syscall_native);
 
