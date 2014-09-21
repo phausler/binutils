@@ -598,6 +598,10 @@ class Target
 
   // Virtual function that must be overridden by a target which uses
   // target specific relocations.
+  virtual uint32_t
+  do_reloc_addend(void*, unsigned int, uint32_t) const
+  { gold_unreachable(); }
+
   virtual uint64_t
   do_reloc_addend(void*, unsigned int, uint64_t) const
   { gold_unreachable(); }
