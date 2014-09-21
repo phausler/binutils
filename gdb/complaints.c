@@ -182,7 +182,8 @@ vcomplaint (struct complaints **c, const char *file,
     series = SUBSEQUENT_MESSAGE;
   else
     series = complaints->series;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
   if (complaint->file != NULL)
     internal_vwarning (complaint->file, complaint->line, 
 		       complaint->fmt, args);
@@ -233,7 +234,7 @@ vcomplaint (struct complaints **c, const char *file,
       complaints->series = SUBSEQUENT_MESSAGE;
       break;
     }
-
+#pragma clang diagnostic pop
   /* If GDB dumps core, we'd like to see the complaints first.
      Presumably GDB will not be sending so many complaints that this
      becomes a performance hog.  */

@@ -468,7 +468,10 @@ file_is_auto_load_safe (const char *filename, const char *debug_fmt, ...)
       va_list debug_args;
 
       va_start (debug_args, debug_fmt);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
       vfprintf_unfiltered (gdb_stdlog, debug_fmt, debug_args);
+#pragma clang diagnostic pop
       va_end (debug_args);
     }
 

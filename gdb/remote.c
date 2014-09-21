@@ -6899,9 +6899,11 @@ remote_send_printf (const char *format, ...)
   va_start (ap, format);
 
   rs->buf[0] = '\0';
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
   if (vsnprintf (rs->buf, max_size, format, ap) >= max_size)
     internal_error (__FILE__, __LINE__, _("Too long remote packet."));
-
+#pragma clang diagnostic pop
   if (putpkt (rs->buf) < 0)
     error (_("Communication problem with target."));
 

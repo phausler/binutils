@@ -106,9 +106,12 @@ ctf_save_write_metadata (struct trace_write_handler *handler,
   va_list args;
 
   va_start (args, format);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
   if (vfprintf (handler->metadata_fd, format, args) < 0)
     error (_("Unable to write metadata file (%s)"),
 	     safe_strerror (errno));
+#pragma clang diagnostic pop
   va_end (args);
 }
 
