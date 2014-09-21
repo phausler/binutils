@@ -1313,7 +1313,7 @@ static int
 arm_linux_syscall_record (struct regcache *regcache, unsigned long svc_number)
 {
   int ret = 0;
-  enum gdb_syscall syscall_gdb;
+  int syscall_gdb;
 
   syscall_gdb = arm_canonicalize_syscall (svc_number);
 
